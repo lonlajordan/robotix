@@ -1,46 +1,57 @@
 package service;
 
+import model.Account;
 import model.Robot;
-import model.User;
 
 import java.util.Scanner;
 
 public class RegistrationService {
-    void addUser(){
+    void login() {
         String response;
-        User user = new User();
+        Account account = new Account();
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Enter your name : ");
+        System.out.print("Entrez votre adresse e-mail : ");
         response = scanner.nextLine();
-        user.setName(response);
-        System.out.println("Enter your surname : ");
+        account.setEmail(response);
+        System.out.print("Entrez votre mot de passe : ");
         response = scanner.nextLine();
-        user.setSurname(response);
-        System.out.println("Enter your pseudo : ");
+        account.setPassword(response);
+    }
+    void createAccount(){
+        String response;
+        Account account = new Account();
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Entrez votre nom : ");
         response = scanner.nextLine();
-        user.setPseudo(response);
-        System.out.println("Enter your password : ");
+        account.setName(response);
+        System.out.println("Entrez votre prénom : ");
         response = scanner.nextLine();
-        user.setPassword(response);
-        System.out.println("Enter your e-mail : ");
+        account.setSurname(response);
+        System.out.println("Entrez votre pseudo : ");
         response = scanner.nextLine();
-        user.setEmail(response);
-        System.out.println("Enter your phone number : ");
+        account.setPseudo(response);
+        System.out.println("Entrez votre mot de passe : ");
         response = scanner.nextLine();
-        user.setPhone(response);
-        System.out.println("Enter your company name (optional) : ");
+        account.setPassword(response);
+        System.out.println("Entrez votre adresse e-mail : ");
         response = scanner.nextLine();
-        user.setCompany(response);
+        account.setEmail(response);
+        System.out.println("Entrez votre numéro de téléphone : ");
+        response = scanner.nextLine();
+        account.setPhone(response);
+        System.out.println("Entrez le nom de votre entreprise (optionnel) : ");
+        response = scanner.nextLine();
+        account.setCompany(response);
     }
 
-    void addRobot(){
+    void createRobot(){
         String response;
         Robot robot = new Robot();
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Enter your name : ");
+        System.out.println("Entrez le nom : ");
         response = scanner.nextLine();
         robot.setName(response);
-        System.out.println("Enter the serial number : ");
+        System.out.println("Entrez le numéro de série : ");
         response = scanner.nextLine();
         robot.setSerialNumber(response);
         robot.setType(response);

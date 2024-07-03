@@ -5,5 +5,5 @@ import java.util.Date;
 public class Notification {
     private Date date;
     private String message;
-    private User user;
+    private Account account;
 }

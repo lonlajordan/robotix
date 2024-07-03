@@ -1,25 +1,40 @@
-import model.Provider;
-import model.User;
-import repository.ProviderRepository;
-import repository.UserRepository;
+import enumeration.Profil;
+import model.Account;
+import repository.AccountRepository;
 
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        showMainMenu();
+        showMainMenu("U");
     }
 
-    public static void showMainMenu(){
+    public static void showMainMenu(String profil){
         Scanner scanner = new Scanner(System.in);
         System.out.println("--------- MENU PRINCIPAL ---------");
-        System.out.println("1- Liste des utilisateurs");
-        System.out.println("2- Rechercher un utilisateur");
-        System.out.println("3- Voir le profil d'un utilisateur");
-        System.out.println("4- Liste des activités");
-        System.out.println("5- Liste des fournisseurs");
-        System.out.println("6- Rechercher un fournisseur");
-        System.out.println("7- Rechercher une composante\n");
+        System.out.println("1- Gestion des utilisateurs");
+        System.out.println("2- Voir le profil d'un utilisateur");
+        System.out.println("3- Liste des activités");
+        System.out.println("4- Gestion des fournisseurs");
+        System.out.println("5- Rechercher une composante");
+        System.out.println("6- Créer un compte");
+        System.out.println("7- Se connecter");
+        if("U".equals(profil)){
+            System.out.println("6- Modifier mon profil");
+            System.out.println("7- Gérer ma flotte (robots et composantes)");
+            System.out.println("8- Gérer mes suiveurs");
+            System.out.println("9- Gérer mes activités");
+            System.out.println("10- Gérer mes intérêts");
+            System.out.println("11- Suivre un utilisateur");
+            System.out.println("12- S'inscrire à une activité");
+            System.out.println("13- Souscrire à un intérêt");
+            System.out.println("14- Voir l'état de mes robots");
+            System.out.println("15- Voir les métriques");
+            System.out.println("16- Voir ses notifications");
+        } else {
+            System.out.println("7- Gérer mes composantes");
+            System.out.println("8- Enregistrer une composante");
+        }
         System.out.print("Entrez le numéro de l'action : ");
         int choice = scanner.nextInt();
         switch (choice){
@@ -52,8 +67,8 @@ public class Main {
         System.out.println("| Liste des utilisateurs |");
         System.out.println("+------------------------+");
         int n = 0;
-        for (User user : UserRepository.USERS){
-            System.out.println(String.format("%2d", ++n) + ") " + user.getName() + " " + user.getSurname());
+        for (Account account : AccountRepository.ACCOUNTS){
+            if(Profil.USER.equals(account.getProfil())) System.out.println(String.format("%2d", ++n) + ") " + account.getName() + " " + account.getSurname());
         }
         nextStep();
     }
@@ -63,6 +78,13 @@ public class Main {
     }
 
     public static void showAllProvider(){
+        System.out.println("+------------------------+");
+        System.out.println("| Liste des fournisseurs |");
+        System.out.println("+------------------------+");
+        int n = 0;
+        for (Account account : AccountRepository.ACCOUNTS){
+            if(Profil.PROVIDER.equals(account.getProfil())) System.out.println(String.format("%2d", ++n) + ") " + account.getName() + " " + account.getSurname());
+        }
         nextStep();
     }
 
@@ -75,13 +97,7 @@ public class Main {
     }
 
     public static void findProvider(){
-        System.out.println("+------------------------+");
-        System.out.println("| Liste des fournisseurs |");
-        System.out.println("+------------------------+");
-        int n = 0;
-        for (Provider provider : ProviderRepository.PROVIDERS){
-            System.out.println(String.format("%2d", ++n) + ") " + provider.getName());
-        }
+
         nextStep();
     }
 
@@ -94,7 +110,7 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         String choice = scanner.nextLine();
         if(choice.toUpperCase().contains("O")){
-            showMainMenu();
+            showMainMenu("U");
         } else {
             System.exit(0);
         }

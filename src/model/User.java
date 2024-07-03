@@ -1,5 +1,8 @@
 package model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class User {
     private String name;
     private String surname;
@@ -8,6 +11,9 @@ public class User {
     private String password;
     private String phone;
     private String company;
+
+    private List<Activity> activities = new ArrayList<>();
+    private List<User> followers = new ArrayList<>();
 
     public String getName() {
         return name;
@@ -63,6 +69,22 @@ public class User {
 
     public void setCompany(String company) {
         this.company = company;
+    }
+
+    public List<Activity> getActivities() {
+        return activities;
+    }
+
+    public void setActivities(List<Activity> activities) {
+        this.activities = activities;
+    }
+
+    public List<User> getFollowers() {
+        return followers;
+    }
+
+    public void setFollowers(List<User> followers) {
+        this.followers = followers;
     }
 
     public User() {

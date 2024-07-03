@@ -1,4 +1,6 @@
+import model.Provider;
 import model.User;
+import repository.ProviderRepository;
 import repository.UserRepository;
 
 import java.util.Scanner;
@@ -46,10 +48,12 @@ public class Main {
     }
 
     public static void showAllUser(){
-        System.out.println("Liste des utilisateurs");
+        System.out.println("+------------------------+");
+        System.out.println("| Liste des utilisateurs |");
+        System.out.println("+------------------------+");
         int n = 0;
         for (User user : UserRepository.USERS){
-            System.out.println(++n + ") " + user.getName() + " " + user.getSurname());
+            System.out.println(String.format("%2d", ++n) + ") " + user.getName() + " " + user.getSurname());
         }
         nextStep();
     }
@@ -71,6 +75,13 @@ public class Main {
     }
 
     public static void findProvider(){
+        System.out.println("+------------------------+");
+        System.out.println("| Liste des fournisseurs |");
+        System.out.println("+------------------------+");
+        int n = 0;
+        for (Provider provider : ProviderRepository.PROVIDERS){
+            System.out.println(String.format("%2d", ++n) + ") " + provider.getName());
+        }
         nextStep();
     }
 

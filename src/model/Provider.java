@@ -1,5 +1,8 @@
 package model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Provider {
     private String name;
     private String password;
@@ -8,6 +11,8 @@ public class Provider {
     private String address;
     private String company;
     private long constructionCapacity;
+
+    private List<Component> components = new ArrayList<>();
 
     public String getName() {
         return name;
@@ -63,6 +68,14 @@ public class Provider {
 
     public void setConstructionCapacity(long constructionCapacity) {
         this.constructionCapacity = constructionCapacity;
+    }
+
+    public List<Component> getComponents() {
+        return components;
+    }
+
+    public void setComponents(List<Component> components) {
+        this.components = components;
     }
 
     public Provider() {

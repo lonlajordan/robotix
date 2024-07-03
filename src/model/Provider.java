@@ -64,4 +64,17 @@ public class Provider {
     public void setConstructionCapacity(long constructionCapacity) {
         this.constructionCapacity = constructionCapacity;
     }
+
+    public Provider() {
+    }
+
+    public Provider(String name, String password, String email, String phone, String address, String company, long constructionCapacity) {
+        this.name = name;
+        this.password = password;
+        this.email = email;
+        this.phone = phone;
+        this.address = address;
+        this.company = company;
+        this.constructionCapacity = constructionCapacity;
+    }
 }

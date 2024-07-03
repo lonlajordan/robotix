@@ -64,4 +64,17 @@ public class User {
     public void setCompany(String company) {
         this.company = company;
     }
+
+    public User() {
+    }
+
+    public User(String name, String surname, String pseudo, String email, String password, String phone, String company) {
+        this.name = name;
+        this.surname = surname;
+        this.pseudo = pseudo;
+        this.email = email;
+        this.password = password;
+        this.phone = phone;
+        this.company = company;
+    }
 }

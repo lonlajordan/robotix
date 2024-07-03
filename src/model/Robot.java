@@ -37,4 +37,14 @@ public class Robot {
     public void setSupervisor(User supervisor) {
         this.supervisor = supervisor;
     }
+
+    public Robot() {
+    }
+
+    public Robot(String name, String type, String serialNumber, User supervisor) {
+        this.name = name;
+        this.type = type;
+        this.serialNumber = serialNumber;
+        this.supervisor = supervisor;
+    }
 }

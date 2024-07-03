@@ -47,4 +47,15 @@ public class Component {
     public void setProvider(Provider provider) {
         this.provider = provider;
     }
+
+    public Component() {
+    }
+
+    public Component(String name, String type, String description, double price, Provider provider) {
+        this.name = name;
+        this.type = type;
+        this.description = description;
+        this.price = price;
+        this.provider = provider;
+    }
 }

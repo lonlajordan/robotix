@@ -1,15 +1,91 @@
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
+import model.User;
+import repository.UserRepository;
+
+import java.util.Scanner;
+
 public class Main {
     public static void main(String[] args) {
-        //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-        // to see how IntelliJ IDEA suggests fixing it.
-        System.out.printf("Hello and welcome!");
+        showMainMenu();
+    }
 
-        for (int i = 1; i <= 5; i++) {
-            //TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
-            // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-            System.out.println("i = " + i);
+    public static void showMainMenu(){
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("--------- MENU PRINCIPAL ---------");
+        System.out.println("1- Liste des utilisateurs");
+        System.out.println("2- Rechercher un utilisateur");
+        System.out.println("3- Voir le profil d'un utilisateur");
+        System.out.println("4- Liste des activités");
+        System.out.println("5- Liste des fournisseurs");
+        System.out.println("6- Rechercher un fournisseur");
+        System.out.println("7- Rechercher une composante\n");
+        System.out.print("Entrez le numéro de l'action : ");
+        int choice = scanner.nextInt();
+        switch (choice){
+            case 1:
+                showAllUser();
+                break;
+            case 2:
+                findUser();
+                break;
+            case 3:
+                showUserDetails();
+                break;
+            case 4:
+                showAllActivity();
+                break;
+            case 5:
+                showAllProvider();
+                break;
+            case 6:
+                findProvider();
+                break;
+            case 7:
+                findComponent();
+                break;
+        }
+    }
+
+    public static void showAllUser(){
+        System.out.println("Liste des utilisateurs");
+        int n = 0;
+        for (User user : UserRepository.USERS){
+            System.out.println(++n + ") " + user.getName() + " " + user.getSurname());
+        }
+        nextStep();
+    }
+
+    public static void showUserDetails(){
+        nextStep();
+    }
+
+    public static void showAllProvider(){
+        nextStep();
+    }
+
+    public static void showAllActivity(){
+        nextStep();
+    }
+
+    public static void findUser(){
+        nextStep();
+    }
+
+    public static void findProvider(){
+        nextStep();
+    }
+
+    public static void findComponent(){
+        nextStep();
+    }
+
+    public static void nextStep(){
+        System.out.print("Voulez-vous continuer [O] Oui | [N] Non ? ");
+        Scanner scanner = new Scanner(System.in);
+        String choice = scanner.nextLine();
+        if(choice.toUpperCase().contains("O")){
+            showMainMenu();
+        } else {
+            System.exit(0);
         }
     }
 }

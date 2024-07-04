@@ -4,7 +4,7 @@ public class Robot {
     private String name;
     private String type;
     private String serialNumber;
-    private User supervisor;
+    private Account supervisor;
 
     public String getName() {
         return name;
@@ -30,18 +30,18 @@ public class Robot {
         this.serialNumber = serialNumber;
     }
 
-    public User getSupervisor() {
+    public Account getSupervisor() {
         return supervisor;
     }
 
-    public void setSupervisor(User supervisor) {
+    public void setSupervisor(Account supervisor) {
         this.supervisor = supervisor;
     }
 
     public Robot() {
     }
 
-    public Robot(String name, String type, String serialNumber, User supervisor) {
+    public Robot(String name, String type, String serialNumber, Account supervisor) {
         this.name = name;
         this.type = type;
         this.serialNumber = serialNumber;

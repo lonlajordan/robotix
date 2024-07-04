@@ -6,7 +6,7 @@ public class Component {
     private String description;
     private double price;
 
-    private Provider provider;
+    private Account provider;
 
     public String getName() {
         return name;
@@ -40,18 +40,18 @@ public class Component {
         this.price = price;
     }
 
-    public Provider getProvider() {
+    public Account getProvider() {
         return provider;
     }
 
-    public void setProvider(Provider provider) {
+    public void setProvider(Account provider) {
         this.provider = provider;
     }
 
     public Component() {
     }
 
-    public Component(String name, String type, String description, double price, Provider provider) {
+    public Component(String name, String type, String description, double price, Account provider) {
         this.name = name;
         this.type = type;
         this.description = description;

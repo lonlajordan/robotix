@@ -7,7 +7,9 @@ import model.Activity;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Scanner;
 
+import static service.Navigation.getNumber;
 import static service.Navigation.nextStep;
 
 public class ActivityRepository {
@@ -43,7 +45,17 @@ public class ActivityRepository {
         nextStep();
     }
 
-    public static void subscribe(){
+    public static void subscribe(Account account){
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Entrez le numéro d'identifiant de l'activité : ");
+        int id = getNumber(scanner);
+        Activity activity = ActivityRepository.ACTIVITIES.stream().filter(a -> a.getId() == id).findFirst().orElse(null);
+        if(activity == null){
+            System.out.println("Activité introuvable");
+        } else {
+            activity.getSubscriberIds().add(account.getId());
+            System.out.println("Opération terminée avec succès");
+        }
         nextStep();
     }
 }

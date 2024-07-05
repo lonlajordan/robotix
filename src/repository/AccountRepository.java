@@ -150,6 +150,7 @@ public class AccountRepository {
         System.out.println("Entrez le nom de votre entreprise (optionnel) : ");
         response = scanner.nextLine();
         if(!response.isBlank()) ACCOUNT_CONNECTED.setCompany(response);
+        System.out.println("Opération terminée avec succès");
         nextStep();
     }
 
@@ -221,6 +222,7 @@ public class AccountRepository {
             notification.setAccount(account.getId());
             NotificationRepository.NOTIFICATIONS.add(notification);
             account.getFollowerIds().add(ACCOUNT_CONNECTED.getId());
+            System.out.println("Opération terminée avec succès");
         }
         nextStep();
     }

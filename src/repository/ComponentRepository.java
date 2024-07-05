@@ -2,7 +2,6 @@ package repository;
 
 import model.Account;
 import model.Component;
-import model.Robot;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -77,6 +76,7 @@ public class ComponentRepository {
         component.setProviderId(account.getId());
         component.setId((long) (ComponentRepository.COMPONENTS.size() + 1));
         ComponentRepository.COMPONENTS.add(component);
+        System.out.println("Opération terminée avec succès");
         nextStep();
     }
 }

@@ -28,6 +28,7 @@ public class RobotRepository {
         robot.setSupervisor(account.getId());
         robot.setId((long) (RobotRepository.ROBOTS.size() + 1));
         RobotRepository.ROBOTS.add(robot);
+        System.out.println("Opération terminée avec succès");
         nextStep();
     }
 
@@ -45,6 +46,9 @@ public class RobotRepository {
             System.out.println("- Batterie : " + robot.getBattery() + " %");
             System.out.println("- Numéro de série : " + robot.getSerialNumber());
             System.out.println("- Vitesse : " + robot.getSpeed() + " m/s");
+            System.out.println("- Position[x] : " + robot.getPosition().getX());
+            System.out.println("- Position[y] : " + robot.getPosition().getY());
+            System.out.println("- Position[z] : " + robot.getPosition().getZ());
             System.out.println("- Utilisation du CPU : " + robot.getProcessorUsage() + " %");
             System.out.println("- Utilisation de la mémoire : " + robot.getMemoryUsage() + " %");
         }

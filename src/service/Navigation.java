@@ -83,7 +83,7 @@ public class Navigation {
                 AccountRepository.follow();
                 break;
             case 15:
-                ActivityRepository.subscribe();
+                ActivityRepository.subscribe(ACCOUNT_CONNECTED);
                 break;
             case 16:
                 RobotRepository.showRobotDetails();

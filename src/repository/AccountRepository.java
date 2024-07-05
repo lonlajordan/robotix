@@ -3,6 +3,7 @@ package repository;
 import enumeration.Profil;
 import model.Account;
 import model.Notification;
+import model.Robot;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -123,29 +124,33 @@ public class AccountRepository {
 
     public static void updateProfil(){
         String response;
-        Account account = new Account();
         Scanner scanner = new Scanner(System.in);
         System.out.println("Entrez votre nom : ");
         response = scanner.nextLine();
-        account.setName(response);
-        System.out.println("Entrez votre prénom : ");
-        response = scanner.nextLine();
-        account.setSurname(response);
-        System.out.println("Entrez votre pseudo : ");
-        response = scanner.nextLine();
-        account.setPseudo(response);
-        System.out.println("Entrez votre mot de passe : ");
-        response = scanner.nextLine();
-        account.setPassword(response);
+        if(ACCOUNT_CONNECTED.getProfil().equals(Profil.USER)){
+            ACCOUNT_CONNECTED.setName(response);
+            System.out.println("Entrez votre prénom : ");
+            response = scanner.nextLine();
+            ACCOUNT_CONNECTED.setSurname(response);
+            System.out.println("Entrez votre pseudo : ");
+            response = scanner.nextLine();
+            ACCOUNT_CONNECTED.setPseudo(response);
+        } else {
+            System.out.println("Entrez votre adresse : ");
+            response = scanner.nextLine();
+            ACCOUNT_CONNECTED.setAddress(response);
+        }
+        ACCOUNT_CONNECTED.setPassword(response);
         System.out.println("Entrez votre adresse e-mail : ");
         response = scanner.nextLine();
-        account.setEmail(response);
+        ACCOUNT_CONNECTED.setEmail(response);
         System.out.println("Entrez votre numéro de téléphone : ");
         response = scanner.nextLine();
-        account.setPhone(response);
+        ACCOUNT_CONNECTED.setPhone(response);
         System.out.println("Entrez le nom de votre entreprise (optionnel) : ");
         response = scanner.nextLine();
-        account.setCompany(response);
+        if(!response.isBlank()) ACCOUNT_CONNECTED.setCompany(response);
+        nextStep();
     }
 
     public static void findProvider(){
@@ -182,13 +187,40 @@ public class AccountRepository {
         nextStep();
     }
 
-    public static void showAllMyNotifications(Account account){
+    public static void showAllMyRobots(Account account){
+        System.out.println("+---------------------------+");
+        System.out.println("|    Liste de mes robots    |");
+        System.out.println("+---------------------------+");
+        int n = 0;
+        for (Robot robot : account.getRobots()){
+            System.out.println(String.format("%3d", ++n) + ") " + robot.getName() + " [id = " + robot.getId() + "]");
+        }
+        nextStep();
+    }
+
+    public static void showAllMyNotifications(Account account) {
         System.out.println("+--------------------------------+");
         System.out.println("|   Liste de mes notifications   |");
         System.out.println("+--------------------------------+");
         int n = 0;
         for (Notification notification : account.getNotifications()){
             System.out.println(String.format("%3d", ++n) + ") " + notification.getMessage() + " [Date = " + new SimpleDateFormat("dd-MM-yyyy").format(notification.getDate()) + "]");
+        }
+        nextStep();
+    }
+
+    public static void follow() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Entrez le numéro d'identifiant de l'utilisateur : ");
+        int id = getNumber(scanner);
+        Account account = AccountRepository.ACCOUNTS.stream().filter(a -> a.getId() == id).findFirst().orElse(null);
+        if(account == null){
+            System.out.println("Compte introuvable");
+        } else {
+            Notification notification = new Notification("L'utilisateur " + ACCOUNT_CONNECTED.getFullName() + " vous suit désormais.");
+            notification.setAccount(account.getId());
+            NotificationRepository.NOTIFICATIONS.add(notification);
+            account.getFollowerIds().add(ACCOUNT_CONNECTED.getId());
         }
         nextStep();
     }

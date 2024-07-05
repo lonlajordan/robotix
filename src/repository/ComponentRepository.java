@@ -2,10 +2,12 @@ package repository;
 
 import model.Account;
 import model.Component;
+import model.Robot;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
+import static service.Navigation.getNumber;
 import static service.Navigation.nextStep;
 
 public class ComponentRepository {
@@ -54,6 +56,27 @@ public class ComponentRepository {
         for (Component component : ComponentRepository.COMPONENTS.stream().filter(component -> Objects.equals(account.getId(), component.getProviderId())).collect(Collectors.toList())){
             System.out.println(String.format("%3d", ++n) + ") " + component.getName());
         }
+        nextStep();
+    }
+
+    public static void createComponent(Account account){
+        String response;
+        Component component = new Component();
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Entrez le nom : ");
+        response = scanner.nextLine();
+        component.setName(response);
+        System.out.println("Entrez le type : ");
+        response = scanner.nextLine();
+        component.setType(response);
+        System.out.println("Entrez la description : ");
+        component.setDescription(response);
+        System.out.println("Entrez le prix : ");
+        int price = getNumber(scanner);
+        component.setPrice(price);
+        component.setProviderId(account.getId());
+        component.setId((long) (ComponentRepository.COMPONENTS.size() + 1));
+        ComponentRepository.COMPONENTS.add(component);
         nextStep();
     }
 }

@@ -26,17 +26,6 @@ public class InterestRepository {
         )
     );
 
-    public static void showAllInterest(){
-        System.out.println("+----------------------+");
-        System.out.println("|  Liste des intérêts  |");
-        System.out.println("+----------------------+");
-        int n = 0;
-        for (Interest interest : InterestRepository.INTERESTS){
-            System.out.println(String.format("%3d", ++n) + ") " + interest.getName());
-        }
-        nextStep();
-    }
-
     public static void showAllMyInterests(Account account){
         System.out.println("+-----------------------+");
         System.out.println("| Liste de mes intérêts |");

@@ -1,6 +1,7 @@
 package model;
 
 public class Robot {
+    private Long id;
     private String name;
     private String type;
     private String serialNumber;
@@ -11,6 +12,14 @@ public class Robot {
     private double battery = 100.0; // in percentage
     private double processorUsage = 10.0; // in percentage
     private double memoryUsage = 10.0; // in percentage
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;

@@ -42,4 +42,8 @@ public class ActivityRepository {
         }
         nextStep();
     }
+
+    public static void subscribe(){
+        nextStep();
+    }
 }

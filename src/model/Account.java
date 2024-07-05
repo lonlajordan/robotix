@@ -1,10 +1,7 @@
 package model;
 
 import enumeration.Profil;
-import repository.AccountRepository;
-import repository.ActivityRepository;
-import repository.ComponentRepository;
-import repository.NotificationRepository;
+import repository.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +23,7 @@ public class Account {
     private String pseudo;
     private List<Long> activityIds = new ArrayList<>();
     private List<Long> followerIds = new ArrayList<>();
+    private List<Long> robotIds = new ArrayList<>();
 
     // Only for providers
     private String address;
@@ -119,6 +117,14 @@ public class Account {
         this.followerIds = followerIds;
     }
 
+    public List<Long> getRobotIds() {
+        return robotIds;
+    }
+
+    public void setRobotIds(List<Long> robotIds) {
+        this.robotIds = robotIds;
+    }
+
     public List<Activity> getActivities() {
         return ActivityRepository.ACTIVITIES.stream().filter(activity -> activity.getSubscriberIds().contains(id)).collect(Collectors.toList());
     }
@@ -129,6 +135,10 @@ public class Account {
 
     public List<Component> getComponents() {
         return ComponentRepository.COMPONENTS.stream().filter(component -> component.getProviderId().equals(id)).collect(Collectors.toList());
+    }
+
+    public List<Robot> getRobots() {
+        return RobotRepository.ROBOTS.stream().filter(robot -> robot.getSupervisorId().equals(id)).collect(Collectors.toList());
     }
 
     public String getAddress() {

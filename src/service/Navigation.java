@@ -1,9 +1,7 @@
 package service;
 
 import enumeration.Profil;
-import repository.AccountRepository;
-import repository.ActivityRepository;
-import repository.ComponentRepository;
+import repository.*;
 
 import java.util.Scanner;
 
@@ -24,15 +22,15 @@ public class Navigation {
         if(ACCOUNT_CONNECTED != null){
             System.out.println("9- Modifier mon profil");
             if(Profil.USER.equals(ACCOUNT_CONNECTED.getProfil())){
-                System.out.println("10- Gérer ma flotte (robots et composantes)");
+                System.out.println("10- Liste de mes robots");
                 System.out.println("11- Liste de mes suiveurs");
                 System.out.println("12- Liste de mes activités");
                 System.out.println("13- Liste de mes intérêts");
                 System.out.println("14- Suivre un utilisateur");
                 System.out.println("15- S'inscrire à une activité");
-                System.out.println("16- Souscrire à un intérêt");
-                System.out.println("17- Voir l'état d'un robot");
-                System.out.println("18- Voir ses notifications");
+                System.out.println("16- Voir l'état d'un robot");
+                System.out.println("17- Voir ses notifications");
+                System.out.println("18- Enregistrer un robot");
             } else {
                 System.out.println("19- Liste de mes composantes");
                 System.out.println("20- Enregistrer une composante");
@@ -70,7 +68,7 @@ public class Navigation {
                 AccountRepository.updateProfil();
                 break;
             case 10:
-                System.out.println("10- Gérer ma flotte (robots et composantes)");
+                AccountRepository.showAllMyRobots(ACCOUNT_CONNECTED);
                 break;
             case 11:
                 AccountRepository.showAllMyFollowers(ACCOUNT_CONNECTED);
@@ -79,28 +77,28 @@ public class Navigation {
                 ActivityRepository.showAllMyActivities(ACCOUNT_CONNECTED);
                 break;
             case 13:
-                System.out.println("13- Gérer mes intérêts");
+                InterestRepository.showAllMyInterests(ACCOUNT_CONNECTED);
                 break;
             case 14:
-                System.out.println("14- Suivre un utilisateur");
+                AccountRepository.follow();
                 break;
             case 15:
-                System.out.println("15- S'inscrire à une activité");
+                ActivityRepository.subscribe();
                 break;
             case 16:
-                System.out.println("16- Souscrire à un intérêt");
+                RobotRepository.showRobotDetails();
                 break;
             case 17:
-                System.out.println("17- Voir l'état d'un robot");
+                AccountRepository.showAllMyNotifications(ACCOUNT_CONNECTED);
                 break;
             case 18:
-                AccountRepository.showAllMyNotifications(ACCOUNT_CONNECTED);
+                RobotRepository.createRobot(ACCOUNT_CONNECTED);
                 break;
             case 19:
                 ComponentRepository.showAllComponent(ACCOUNT_CONNECTED);
                 break;
             case 20:
-                System.out.println("21- Enregistrer une composante");
+                ComponentRepository.createComponent(ACCOUNT_CONNECTED);
                 break;
         }
     }

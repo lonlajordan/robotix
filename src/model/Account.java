@@ -138,6 +138,11 @@ public class Account {
         this.components = components;
     }
 
+    public String getFullName(){
+        if(Profil.USER.equals(profil)) return name + " " + surname;
+        return name;
+    }
+
     public Account() {
     }
 

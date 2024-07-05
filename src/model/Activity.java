@@ -6,9 +6,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Activity {
+    private Long id;
     private String name;
     private Status status;
     private List<Interest> interests = new ArrayList<>();
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;

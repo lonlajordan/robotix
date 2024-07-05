@@ -186,10 +186,43 @@ public class Main {
         nextStep();
     }
 
+    public static void showAllMyFollowers(){
+        System.out.println("+---------------------------+");
+        System.out.println("|   Liste de mes suiveurs   |");
+        System.out.println("+---------------------------+");
+        int n = 0;
+        for (Account account : ACCOUNT_CONNECTED.getFollowers()){
+            System.out.println(String.format("%3d", ++n) + ") " + account.getName() + " [id = " + account.getId() + "]");
+        }
+        nextStep();
+    }
+
+    public static void showAllMyActivities(){
+        System.out.println("+----------------------------+");
+        System.out.println("|   Liste de mes activités   |");
+        System.out.println("+----------------------------+");
+        int n = 0;
+        for (Activity activity : ACCOUNT_CONNECTED.getActivities()){
+            System.out.println(String.format("%3d", ++n) + ") " + activity.getName() + " [id = " + activity.getId() + "]");
+        }
+        nextStep();
+    }
+
     public static void showAllActivity(){
         System.out.println("+---------------------+");
         System.out.println("| Liste des activités |");
         System.out.println("+---------------------+");
+        int n = 0;
+        for (Activity activity : ActivityRepository.ACTIVITIES){
+            System.out.println(String.format("%3d", ++n) + ") " + activity.getName());
+        }
+        nextStep();
+    }
+
+    public static void showAllMyInterests(){
+        System.out.println("+-----------------------+");
+        System.out.println("| Liste de mes intérêts |");
+        System.out.println("+-----------------------+");
         int n = 0;
         for (Activity activity : ActivityRepository.ACTIVITIES){
             System.out.println(String.format("%3d", ++n) + ") " + activity.getName());

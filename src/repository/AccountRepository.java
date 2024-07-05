@@ -2,15 +2,16 @@ package repository;
 
 import enumeration.Profil;
 import model.Account;
+import model.Notification;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
-import static service.Navigation.nextStep;
-import static service.Navigation.showMainMenu;
+import static service.Navigation.*;
 
 public class AccountRepository {
     public static Account ACCOUNT_CONNECTED;
@@ -64,7 +65,7 @@ public class AccountRepository {
             System.out.println("+------------------------+");
             int n = 0;
             for (Account account : accounts){
-                System.out.println(String.format("%2d", ++n) + ") " + account.getName() + " " + account.getSurname() + " [id = " + account.getId() + "]");
+                System.out.println(String.format("%2d", ++n) + ") " + account.getFullName() + " [id = " + account.getId() + "]");
             }
         }
         nextStep();
@@ -81,42 +82,29 @@ public class AccountRepository {
         nextStep();
     }
 
-    public static void showUserDetails(){
+    public static void showAccountDetails(){
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Entrez le numéro d'identifiant de l'utilisateur : ");
-        int id = scanner.nextInt();
-        Account account = AccountRepository.ACCOUNTS.stream().filter(a -> a.getId() == id && a.getProfil().equals(Profil.USER)).findFirst().orElse(null);
+        System.out.println("Entrez le numéro d'identifiant : ");
+        int id = getNumber(scanner);
+        Account account = AccountRepository.ACCOUNTS.stream().filter(a -> a.getId() == id).findFirst().orElse(null);
         if(account == null){
-            System.out.println("Utilisateur introuvable");
+            System.out.println("Compte introuvable");
         } else {
             System.out.println("- id : " + account.getId());
             System.out.println("- Nom : " + account.getName());
-            System.out.println("- Prénom : " + account.getSurname());
-            System.out.println("- pseudo : " + account.getSurname());
+            if(account.getProfil().equals(Profil.USER)){
+                System.out.println("- Prénom : " + account.getSurname());
+                System.out.println("- Pseudo : " + account.getSurname());
+            } else {
+                System.out.println("- Adresse : " + account.getAddress());
+            }
             System.out.println("- Email : " + account.getEmail());
             System.out.println("- Téléphone : " + account.getPhone());
         }
         nextStep();
     }
 
-    public static void showProviderDetails(){
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Entrez le numéro d'identifiant du fournisseur : ");
-        int id = scanner.nextInt();
-        Account account = AccountRepository.ACCOUNTS.stream().filter(a -> a.getId() == id && a.getProfil().equals(Profil.PROVIDER)).findFirst().orElse(null);
-        if(account == null){
-            System.out.println("Fournisseur introuvable");
-        } else {
-            System.out.println("- id : " + account.getId());
-            System.out.println("- Nom : " + account.getName());
-            System.out.println("- Adresse : " + account.getAddress());
-            System.out.println("- Email : " + account.getEmail());
-            System.out.println("- Téléphone : " + account.getPhone());
-        }
-        nextStep();
-    }
-
-    void login() {
+    public static void login() {
         String email, password;
         Scanner scanner = new Scanner(System.in);
         System.out.print("Entrez votre adresse e-mail : ");
@@ -128,11 +116,12 @@ public class AccountRepository {
             System.out.println("Adresse e-mail ou mot de passe incorrect");
             nextStep();
         } else {
+            System.out.println("Bienvenu sur Robotix, " + ACCOUNT_CONNECTED.getFullName());
             showMainMenu();
         }
     }
 
-    void updateProfil(){
+    public static void updateProfil(){
         String response;
         Account account = new Account();
         Scanner scanner = new Scanner(System.in);
@@ -189,6 +178,17 @@ public class AccountRepository {
         int n = 0;
         for (Account follower : account.getFollowers()){
             System.out.println(String.format("%3d", ++n) + ") " + follower.getFullName() + " [id = " + account.getId() + "]");
+        }
+        nextStep();
+    }
+
+    public static void showAllMyNotifications(Account account){
+        System.out.println("+--------------------------------+");
+        System.out.println("|   Liste de mes notifications   |");
+        System.out.println("+--------------------------------+");
+        int n = 0;
+        for (Notification notification : account.getNotifications()){
+            System.out.println(String.format("%3d", ++n) + ") " + notification.getMessage() + " [Date = " + new SimpleDateFormat("dd-MM-yyyy").format(notification.getDate()) + "]");
         }
         nextStep();
     }

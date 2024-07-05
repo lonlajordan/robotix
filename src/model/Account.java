@@ -143,6 +143,10 @@ public class Account {
         return name;
     }
 
+    public List<Notification> getNotifications(){
+        return new ArrayList<>();
+    }
+
     public Account() {
     }
 

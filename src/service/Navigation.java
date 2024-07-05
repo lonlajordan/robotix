@@ -17,25 +17,25 @@ public class Navigation {
         System.out.println("2- Rechercher un utilisateur");
         System.out.println("3- Voir le profil d'un utilisateur");
         System.out.println("4- Liste des activités");
-        System.out.println("5- Gestion des fournisseurs");
-        System.out.println("6- Rechercher une composante");
-        System.out.println("7- Se connecter");
+        System.out.println("5- Liste des fournisseurs");
+        System.out.println("6- Rechercher un fournisseur");
+        System.out.println("7- Rechercher une composante");
+        System.out.println("8- Se connecter");
         if(ACCOUNT_CONNECTED != null){
-            System.out.println("8- Modifier mon profil");
+            System.out.println("9- Modifier mon profil");
             if(Profil.USER.equals(ACCOUNT_CONNECTED.getProfil())){
-                System.out.println("9- Gérer ma flotte (robots et composantes)");
-                System.out.println("10- Gérer mes suiveurs");
-                System.out.println("11- Gérer mes activités");
-                System.out.println("12- Gérer mes intérêts");
-                System.out.println("13- Suivre un utilisateur");
-                System.out.println("14- S'inscrire à une activité");
-                System.out.println("15- Souscrire à un intérêt");
-                System.out.println("16- Voir l'état de mes robots");
-                System.out.println("17- Voir les métriques");
+                System.out.println("10- Gérer ma flotte (robots et composantes)");
+                System.out.println("11- Liste de mes suiveurs");
+                System.out.println("12- Liste de mes activités");
+                System.out.println("13- Liste de mes intérêts");
+                System.out.println("14- Suivre un utilisateur");
+                System.out.println("15- S'inscrire à une activité");
+                System.out.println("16- Souscrire à un intérêt");
+                System.out.println("17- Voir l'état d'un robot");
                 System.out.println("18- Voir ses notifications");
             } else {
-                System.out.println("9- Gérer mes composantes");
-                System.out.println("10- Enregistrer une composante");
+                System.out.println("19- Liste de mes composantes");
+                System.out.println("20- Enregistrer une composante");
             }
         }
 
@@ -49,7 +49,7 @@ public class Navigation {
                 AccountRepository.findUser();
                 break;
             case 3:
-                AccountRepository.showUserDetails();
+                AccountRepository.showAccountDetails();
                 break;
             case 4:
                 ActivityRepository.showAllActivity();
@@ -62,6 +62,45 @@ public class Navigation {
                 break;
             case 7:
                 ComponentRepository.findComponent();
+                break;
+            case 8:
+                AccountRepository.login();
+                break;
+            case 9:
+                AccountRepository.updateProfil();
+                break;
+            case 10:
+                System.out.println("10- Gérer ma flotte (robots et composantes)");
+                break;
+            case 11:
+                AccountRepository.showAllMyFollowers(ACCOUNT_CONNECTED);
+                break;
+            case 12:
+                ActivityRepository.showAllMyActivities(ACCOUNT_CONNECTED);
+                break;
+            case 13:
+                System.out.println("13- Gérer mes intérêts");
+                break;
+            case 14:
+                System.out.println("14- Suivre un utilisateur");
+                break;
+            case 15:
+                System.out.println("15- S'inscrire à une activité");
+                break;
+            case 16:
+                System.out.println("16- Souscrire à un intérêt");
+                break;
+            case 17:
+                System.out.println("17- Voir l'état d'un robot");
+                break;
+            case 18:
+                AccountRepository.showAllMyNotifications(ACCOUNT_CONNECTED);
+                break;
+            case 19:
+                ComponentRepository.showAllComponent(ACCOUNT_CONNECTED);
+                break;
+            case 20:
+                System.out.println("21- Enregistrer une composante");
                 break;
         }
     }

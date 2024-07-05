@@ -5,7 +5,7 @@ import java.util.Date;
 public class Notification {
     private Date date = new Date();
     private String message;
-    private Account account;
+    private Long accountId;
 
 
     public Date getDate() {
@@ -24,12 +24,12 @@ public class Notification {
         this.message = message;
     }
 
-    public Account getAccount() {
-        return account;
+    public Long getAccountId() {
+        return accountId;
     }
 
-    public void setAccount(Account account) {
-        this.account = account;
+    public void setAccount(Long accountId) {
+        this.accountId = accountId;
     }
 
     public Notification(String message) {

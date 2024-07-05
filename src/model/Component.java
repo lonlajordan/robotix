@@ -1,12 +1,21 @@
 package model;
 
 public class Component {
+    private Long id;
     private String name;
     private String type;
     private String description;
     private double price;
 
-    private Account provider;
+    private Long providerId;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;
@@ -40,22 +49,23 @@ public class Component {
         this.price = price;
     }
 
-    public Account getProvider() {
-        return provider;
+    public Long getProviderId() {
+        return providerId;
     }
 
-    public void setProvider(Account provider) {
-        this.provider = provider;
+    public void setProviderId(Long providerId) {
+        this.providerId = providerId;
     }
 
     public Component() {
     }
 
-    public Component(String name, String type, String description, double price, Account provider) {
+    public Component(Long id, String name, String type, String description, double price, Long providerId) {
+        this.id = id;
         this.name = name;
         this.type = type;
         this.description = description;
         this.price = price;
-        this.provider = provider;
+        this.providerId = providerId;
     }
 }

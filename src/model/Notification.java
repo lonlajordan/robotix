@@ -3,7 +3,7 @@ package model;
 import java.util.Date;
 
 public class Notification {
-    private Date date;
+    private Date date = new Date();
     private String message;
     private Account account;
 
@@ -30,5 +30,9 @@ public class Notification {
 
     public void setAccount(Account account) {
         this.account = account;
+    }
+
+    public Notification(String message) {
+        this.message = message;
     }
 }

@@ -6,8 +6,15 @@ import model.Account;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Scanner;
+import java.util.stream.Collectors;
+
+import static service.Navigation.nextStep;
+import static service.Navigation.showMainMenu;
 
 public class AccountRepository {
+    public static Account ACCOUNT_CONNECTED;
+
     public static List<Account> ACCOUNTS = new ArrayList<>(
         Arrays.asList(
             new Account(1L, Profil.USER, "DOE", "John", "alpha", "doe@gmail.com", "Alph@012", "695-463-868", "GOOGLE"),
@@ -28,4 +35,161 @@ public class AccountRepository {
             new Account(15L, Profil.PROVIDER,"KEVIN Owen", "kevin@gmail.com", "Survivor$234", "677-432-413", "USA", "BOEING", 3500)
         )
     );
+
+    public static void showAllUser(){
+        System.out.println("+------------------------+");
+        System.out.println("| Liste des utilisateurs |");
+        System.out.println("+------------------------+");
+        int n = 0;
+        for (Account account : AccountRepository.ACCOUNTS.stream().filter(account -> Profil.USER.equals(account.getProfil())).collect(Collectors.toList())){
+            System.out.println(String.format("%3d", ++n) + ") " + account.getName() + " " + account.getSurname() + " [id = " + account.getId() + "]");
+        }
+        nextStep();
+    }
+
+    public static void findUser(){
+        System.out.print("Entrez le pseudo ou le nom d'un suiveur : ");
+        Scanner scanner = new Scanner(System.in);
+        String keyword = scanner.nextLine().toLowerCase();
+        List<Account> accounts = AccountRepository.ACCOUNTS.stream().filter(account -> {
+            boolean match = Profil.USER.equals(account.getProfil());
+            match = match && (account.getPseudo().toLowerCase().contains(keyword) || account.getFollowers().stream().anyMatch(follower -> follower.getFullName().toLowerCase().contains(keyword)));
+            return match;
+        }).collect(Collectors.toList());
+        if(accounts.isEmpty()){
+            System.out.println("Aucun résultat");
+        } else {
+            System.out.println("+------------------------+");
+            System.out.println("|   Liste des résultats  |");
+            System.out.println("+------------------------+");
+            int n = 0;
+            for (Account account : accounts){
+                System.out.println(String.format("%2d", ++n) + ") " + account.getName() + " " + account.getSurname() + " [id = " + account.getId() + "]");
+            }
+        }
+        nextStep();
+    }
+
+    public static void showAllProvider(){
+        System.out.println("+------------------------+");
+        System.out.println("| Liste des fournisseurs |");
+        System.out.println("+------------------------+");
+        int n = 0;
+        for (Account account : AccountRepository.ACCOUNTS.stream().filter(account -> Profil.PROVIDER.equals(account.getProfil())).collect(Collectors.toList())){
+            System.out.println(String.format("%3d", ++n) + ") " + account.getName() + " [id = " + account.getId() + "]");
+        }
+        nextStep();
+    }
+
+    public static void showUserDetails(){
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Entrez le numéro d'identifiant de l'utilisateur : ");
+        int id = scanner.nextInt();
+        Account account = AccountRepository.ACCOUNTS.stream().filter(a -> a.getId() == id && a.getProfil().equals(Profil.USER)).findFirst().orElse(null);
+        if(account == null){
+            System.out.println("Utilisateur introuvable");
+        } else {
+            System.out.println("- id : " + account.getId());
+            System.out.println("- Nom : " + account.getName());
+            System.out.println("- Prénom : " + account.getSurname());
+            System.out.println("- pseudo : " + account.getSurname());
+            System.out.println("- Email : " + account.getEmail());
+            System.out.println("- Téléphone : " + account.getPhone());
+        }
+        nextStep();
+    }
+
+    public static void showProviderDetails(){
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Entrez le numéro d'identifiant du fournisseur : ");
+        int id = scanner.nextInt();
+        Account account = AccountRepository.ACCOUNTS.stream().filter(a -> a.getId() == id && a.getProfil().equals(Profil.PROVIDER)).findFirst().orElse(null);
+        if(account == null){
+            System.out.println("Fournisseur introuvable");
+        } else {
+            System.out.println("- id : " + account.getId());
+            System.out.println("- Nom : " + account.getName());
+            System.out.println("- Adresse : " + account.getAddress());
+            System.out.println("- Email : " + account.getEmail());
+            System.out.println("- Téléphone : " + account.getPhone());
+        }
+        nextStep();
+    }
+
+    void login() {
+        String email, password;
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Entrez votre adresse e-mail : ");
+        email = scanner.nextLine();
+        System.out.print("Entrez votre mot de passe : ");
+        password = scanner.nextLine();
+        ACCOUNT_CONNECTED = AccountRepository.ACCOUNTS.stream().filter(account -> account.getEmail().equals(email) && account.getPassword().equals(password)).findFirst().orElse(null);
+        if(ACCOUNT_CONNECTED == null){
+            System.out.println("Adresse e-mail ou mot de passe incorrect");
+            nextStep();
+        } else {
+            showMainMenu();
+        }
+    }
+
+    void updateProfil(){
+        String response;
+        Account account = new Account();
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Entrez votre nom : ");
+        response = scanner.nextLine();
+        account.setName(response);
+        System.out.println("Entrez votre prénom : ");
+        response = scanner.nextLine();
+        account.setSurname(response);
+        System.out.println("Entrez votre pseudo : ");
+        response = scanner.nextLine();
+        account.setPseudo(response);
+        System.out.println("Entrez votre mot de passe : ");
+        response = scanner.nextLine();
+        account.setPassword(response);
+        System.out.println("Entrez votre adresse e-mail : ");
+        response = scanner.nextLine();
+        account.setEmail(response);
+        System.out.println("Entrez votre numéro de téléphone : ");
+        response = scanner.nextLine();
+        account.setPhone(response);
+        System.out.println("Entrez le nom de votre entreprise (optionnel) : ");
+        response = scanner.nextLine();
+        account.setCompany(response);
+    }
+
+    public static void findProvider(){
+        System.out.print("Entrez le nom, une adresse ou le type de composante : ");
+        Scanner scanner = new Scanner(System.in);
+        String keyword = scanner.nextLine().toLowerCase();
+        List<Account> accounts = AccountRepository.ACCOUNTS.stream().filter(account -> {
+            boolean match = Profil.PROVIDER.equals(account.getProfil());
+            match = match && (account.getName().toLowerCase().contains(keyword) || account.getAddress().toLowerCase().contains(keyword) || account.getComponents().stream().anyMatch(component -> component.getType().toLowerCase().contains(keyword)));
+            return match;
+        }).collect(Collectors.toList());
+        if(accounts.isEmpty()){
+            System.out.println("Aucun résultat");
+        } else {
+            System.out.println("+------------------------+");
+            System.out.println("|   Liste des résultats  |");
+            System.out.println("+------------------------+");
+            int n = 0;
+            for (Account account : accounts){
+                System.out.println(String.format("%2d", ++n) + ") " + account.getName() + " " + account.getSurname() + " [id = " + account.getId() + "]");
+            }
+        }
+        nextStep();
+    }
+
+    public static void showAllMyFollowers(Account account){
+        System.out.println("+---------------------------+");
+        System.out.println("|   Liste de mes suiveurs   |");
+        System.out.println("+---------------------------+");
+        int n = 0;
+        for (Account follower : account.getFollowers()){
+            System.out.println(String.format("%3d", ++n) + ") " + follower.getFullName() + " [id = " + account.getId() + "]");
+        }
+        nextStep();
+    }
 }

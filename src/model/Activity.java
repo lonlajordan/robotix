@@ -45,4 +45,11 @@ public class Activity {
 
     public Activity() {
     }
+
+    public Activity(Long id, String name, Status status, List<Interest> interests) {
+        this.id = id;
+        this.name = name;
+        this.status = status;
+        this.interests = interests;
+    }
 }

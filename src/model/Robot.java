@@ -4,7 +4,13 @@ public class Robot {
     private String name;
     private String type;
     private String serialNumber;
-    private Account supervisor;
+    private Long supervisorId;
+
+    private Position position = new Position();
+    private double speed = 5.0; // in meters per secondes
+    private double battery = 100.0; // in percentage
+    private double processorUsage = 10.0; // in percentage
+    private double memoryUsage = 10.0; // in percentage
 
     public String getName() {
         return name;
@@ -30,21 +36,61 @@ public class Robot {
         this.serialNumber = serialNumber;
     }
 
-    public Account getSupervisor() {
-        return supervisor;
+    public Long getSupervisorId() {
+        return supervisorId;
     }
 
-    public void setSupervisor(Account supervisor) {
-        this.supervisor = supervisor;
+    public void setSupervisor(Long supervisorId) {
+        this.supervisorId = supervisorId;
+    }
+
+    public Position getPosition() {
+        return position;
+    }
+
+    public void setPosition(Position position) {
+        this.position = position;
+    }
+
+    public double getSpeed() {
+        return speed;
+    }
+
+    public void setSpeed(double speed) {
+        this.speed = speed;
+    }
+
+    public double getBattery() {
+        return battery;
+    }
+
+    public void setBattery(double battery) {
+        this.battery = battery;
+    }
+
+    public double getProcessorUsage() {
+        return processorUsage;
+    }
+
+    public void setProcessorUsage(double processorUsage) {
+        this.processorUsage = processorUsage;
+    }
+
+    public double getMemoryUsage() {
+        return memoryUsage;
+    }
+
+    public void setMemoryUsage(double memoryUsage) {
+        this.memoryUsage = memoryUsage;
     }
 
     public Robot() {
     }
 
-    public Robot(String name, String type, String serialNumber, Account supervisor) {
+    public Robot(String name, String type, String serialNumber, Long supervisorId) {
         this.name = name;
         this.type = type;
         this.serialNumber = serialNumber;
-        this.supervisor = supervisor;
+        this.supervisorId = supervisorId;
     }
 }

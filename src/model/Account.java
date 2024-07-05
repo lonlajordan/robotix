@@ -1,9 +1,15 @@
 package model;
 
 import enumeration.Profil;
+import repository.AccountRepository;
+import repository.ActivityRepository;
+import repository.ComponentRepository;
+import repository.NotificationRepository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 public class Account {
     // Common properties
@@ -18,13 +24,12 @@ public class Account {
     // Only for users
     private String surname;
     private String pseudo;
-    private List<Activity> activities = new ArrayList<>();
-    private List<Account> followers = new ArrayList<>();
+    private List<Long> activityIds = new ArrayList<>();
+    private List<Long> followerIds = new ArrayList<>();
 
     // Only for providers
     private String address;
     private Long constructionCapacity;
-    private List<Component> components = new ArrayList<>();
 
     public Long getId() {
         return id;
@@ -98,20 +103,32 @@ public class Account {
         this.pseudo = pseudo;
     }
 
-    public List<Activity> getActivities() {
-        return activities;
+    public List<Long> getActivityIds() {
+        return activityIds;
     }
 
-    public void setActivities(List<Activity> activities) {
-        this.activities = activities;
+    public void setActivityIds(List<Long> activityIds) {
+        this.activityIds = activityIds;
+    }
+
+    public List<Long> getFollowerIds() {
+        return followerIds;
+    }
+
+    public void setFollowerIds(List<Long> followerIds) {
+        this.followerIds = followerIds;
+    }
+
+    public List<Activity> getActivities() {
+        return ActivityRepository.ACTIVITIES.stream().filter(activity -> activity.getSubscriberIds().contains(id)).collect(Collectors.toList());
     }
 
     public List<Account> getFollowers() {
-        return followers;
+        return AccountRepository.ACCOUNTS.stream().filter(account -> account.followerIds.contains(id)).collect(Collectors.toList());
     }
 
-    public void setFollowers(List<Account> followers) {
-        this.followers = followers;
+    public List<Component> getComponents() {
+        return ComponentRepository.COMPONENTS.stream().filter(component -> component.getProviderId().equals(id)).collect(Collectors.toList());
     }
 
     public String getAddress() {
@@ -130,21 +147,13 @@ public class Account {
         this.constructionCapacity = constructionCapacity;
     }
 
-    public List<Component> getComponents() {
-        return components;
-    }
-
-    public void setComponents(List<Component> components) {
-        this.components = components;
-    }
-
     public String getFullName(){
         if(Profil.USER.equals(profil)) return name + " " + surname;
         return name;
     }
 
     public List<Notification> getNotifications(){
-        return new ArrayList<>();
+        return NotificationRepository.NOTIFICATIONS.stream().filter(notification -> Objects.equals(notification.getAccountId(), id)).collect(Collectors.toList());
     }
 
     public Account() {

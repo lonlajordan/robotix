@@ -9,6 +9,7 @@ public class Activity {
     private Long id;
     private String name;
     private Status status;
+    private List<Long> subscriberIds = new ArrayList<>();
     private List<Interest> interests = new ArrayList<>();
 
     public Long getId() {
@@ -41,6 +42,14 @@ public class Activity {
 
     public void setInterests(List<Interest> interests) {
         this.interests = interests;
+    }
+
+    public List<Long> getSubscriberIds() {
+        return subscriberIds;
+    }
+
+    public void setSubscriberIds(List<Long> subscriberIds) {
+        this.subscriberIds = subscriberIds;
     }
 
     public Activity() {

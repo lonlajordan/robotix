@@ -1,6 +1,5 @@
 package repository;
 
-import model.Activity;
 import model.Interest;
 
 import java.util.ArrayList;

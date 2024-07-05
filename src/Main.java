@@ -23,27 +23,26 @@ public class Main {
         System.out.println("1- Liste des utilisateurs");
         System.out.println("2- Rechercher un utilisateur");
         System.out.println("3- Voir le profil d'un utilisateur");
-        System.out.println("3- Liste des activités");
-        System.out.println("4- Gestion des fournisseurs");
-        System.out.println("5- Rechercher une composante");
-        System.out.println("6- Créer un compte");
+        System.out.println("4- Liste des activités");
+        System.out.println("5- Gestion des fournisseurs");
+        System.out.println("6- Rechercher une composante");
         System.out.println("7- Se connecter");
         if(ACCOUNT_CONNECTED != null){
+            System.out.println("8- Modifier mon profil");
             if(Profil.USER.equals(ACCOUNT_CONNECTED.getProfil())){
-                System.out.println("6- Modifier mon profil");
-                System.out.println("7- Gérer ma flotte (robots et composantes)");
-                System.out.println("8- Gérer mes suiveurs");
-                System.out.println("9- Gérer mes activités");
-                System.out.println("10- Gérer mes intérêts");
-                System.out.println("11- Suivre un utilisateur");
-                System.out.println("12- S'inscrire à une activité");
-                System.out.println("13- Souscrire à un intérêt");
-                System.out.println("14- Voir l'état de mes robots");
-                System.out.println("15- Voir les métriques");
-                System.out.println("16- Voir ses notifications");
+                System.out.println("9- Gérer ma flotte (robots et composantes)");
+                System.out.println("10- Gérer mes suiveurs");
+                System.out.println("11- Gérer mes activités");
+                System.out.println("12- Gérer mes intérêts");
+                System.out.println("13- Suivre un utilisateur");
+                System.out.println("14- S'inscrire à une activité");
+                System.out.println("15- Souscrire à un intérêt");
+                System.out.println("16- Voir l'état de mes robots");
+                System.out.println("17- Voir les métriques");
+                System.out.println("18- Voir ses notifications");
             } else {
-                System.out.println("7- Gérer mes composantes");
-                System.out.println("8- Enregistrer une composante");
+                System.out.println("9- Gérer mes composantes");
+                System.out.println("10- Enregistrer une composante");
             }
         }
 
@@ -100,7 +99,7 @@ public class Main {
         }
     }
 
-    void createAccount(){
+    void updateProfil(){
         String response;
         Account account = new Account();
         Scanner scanner = new Scanner(System.in);

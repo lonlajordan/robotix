@@ -225,7 +225,9 @@ public class Main {
         System.out.println("+-----------------------+");
         int n = 0;
         for (Activity activity : ActivityRepository.ACTIVITIES){
-            System.out.println(String.format("%3d", ++n) + ") " + activity.getName());
+            for(Interest interest: activity.getInterests()){
+                System.out.println(String.format("%3d", ++n) + ") " + interest.getName());
+            }
         }
         nextStep();
     }
